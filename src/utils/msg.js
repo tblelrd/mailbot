@@ -127,6 +127,10 @@ const msg = async (msg, bot) => {
                 const collector = mailsMsg.createReactionCollector((reaction, user) => user.id == msg.author.id);
 
                 collector.on('collect', async (reaction, user) => {
+                    for(const reactionn of mailsMsg.reactions.cache) {
+                        reactionn[1].users.remove(user.id);
+                    }
+                    if(user != msg.author) return;
                     switch(reaction.emoji.name) {
                         case '⬆':
                             currentId = editMsg(mails, mailsMsg, currentId, -1, bot);
@@ -158,9 +162,6 @@ const msg = async (msg, bot) => {
                                 if (err) return console.log(err)
                             });
                         return;
-                    }
-                    for(const reactionn of mailsMsg.reactions.cache) {
-                        reactionn[1].users.remove(user.id);
                     }
                 });
             });

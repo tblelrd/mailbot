@@ -118,10 +118,10 @@ const msg = async (msg, bot) => {
                     let user = bot.users.cache.find(user => user.id == mail.userID); 
 
                     if(id == currentId) {
-						if(!user) return `> ${ID + 1}. ${mail.title} (from ${mail.userID})`
+						if(!user) return `> ${id + 1}. ${mail.title} (from ${mail.userID})`
                         return `> ${id + 1}. ${mail.title} (from ${user.username})`;
                     }
-					if(!user) return `  ${ID + 1}. ${mail.title} (from ${mail.userID})`
+					if(!user) return `  ${id + 1}. ${mail.title} (from ${mail.userID})`
                     return `  ${id + 1}. ${mail.title} (from ${user.username})`;
                 }).join('\n');
                 const mailsMsg = await msg.channel.send('```nim\n---Your mailss---\n\n' + list + '```');

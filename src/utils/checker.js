@@ -6,7 +6,7 @@ const Mail = require('../models/mail');
  * @type {Map<String, Date>}
  */
 const LastMessaged = new Map();
-const waitTime = 1000 * 5;
+const waitTime = 1000 * 60 * 5;
 
 /**
  * 

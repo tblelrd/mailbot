@@ -52,7 +52,7 @@ const msg = async (msg, bot) => {
             await msg.delete();
             const message = await msg.channel.send(`What do you want to send to ${target.username}`);
             const collector = msg.channel.createMessageCollector(filter, {
-                 time: 15000, 
+                 time: 60000, 
                  max: 1,
             });
             

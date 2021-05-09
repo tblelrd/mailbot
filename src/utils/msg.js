@@ -192,10 +192,12 @@ const editMsg = (mails, message, id, increment) => {
     if(!mails[id + increment]) return id;
     
     const list = mails.map((mails, ID) => {
+        let user = bot.users.cache.find(user => user.id == mail.targetID);
+
         if(ID == id + increment) {
-            return `------------------\n${ID + 1}. ${mails.title}\n------------------`;
+            return `------------------\n${ID + 1}. ${mails.title} (from ${user.username})\n------------------`;
         }
-        return `${ID + 1}. ${mails.title}`;
+        return `${ID + 1}. ${mails.title} (from ${user.username})`;
     }).join('\n');
     message.edit('```nim\n---Your mailss---\n\n' + list + '```')
 

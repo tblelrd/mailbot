@@ -1,4 +1,4 @@
-const { Message, MessageEmbed, Client } = require('discord.js');
+const { Message, MessageEmbed, Client, User } = require('discord.js');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
@@ -7,6 +7,12 @@ const suffix = ']';
 
 const checker = require('./checker');
 const Mail = require('../models/mail');
+
+/**
+ * @type {Map<User, Array>}
+ */
+const seenMails = new Map();
+
 /**
  * 
  * @param {Message} msg 
@@ -20,7 +26,7 @@ const msg = async (msg, bot) => {
     const firstArg = tempArgs[0];
     const lastArg = tempArgs[tempArgs.length - 1];
 
-    if((firstArg.length == 1 || lastArg.length == 1) || !firstArg.startsWith(prefix) || !lastArg.endsWith(suffix)) return checker(msg, bot);
+    if((firstArg.length == 1 || lastArg.length == 1) || !firstArg.startsWith(prefix) || !lastArg.endsWith(suffix)) return checker(msg, bot, seenMails);
 
     const args = tempArgs.map((arg, i) => {
         if(i == 0) arg = arg.substring(prefix.length);
@@ -111,6 +117,8 @@ const msg = async (msg, bot) => {
         case 'read':
             Mail.find({ targetID: msg.author.id }, async (err, mails) => {
                 if(!mails.length) return msg.channel.send('You got no mail :(');
+
+                seenMails.set(msg.author, mails);
 
                 let currentId = 0;
 

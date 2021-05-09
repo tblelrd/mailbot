@@ -24,7 +24,7 @@ const checker = (msg, bot, seenMails) => {
             const seenMailsList = seenMails.get(msg.author)
             const newMails = mails.filter(mail => !seenMailsList.includes(mail));
             
-            if(!nweMails.length) return;
+            if(!newMails.length) return;
 
             msg.channel.send(`You've got ${mails.length} unread ${mails.length > 1 ? 'mails' : 'mail'}! \nUse the [read] command to read your mail.`);
         });

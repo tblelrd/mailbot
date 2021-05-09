@@ -22,9 +22,6 @@ const msg = async (msg, bot) => {
 
     if((firstArg.length == 1 || lastArg.length == 1) || !firstArg.startsWith(prefix) || !lastArg.endsWith(suffix)) return checker(msg, bot);
 
-    // if(firstArg.length == 1 || lastArg.length == 1) return;
-    // if(!firstArg.startsWith(prefix) || !lastArg.endsWith(suffix)) return;
-
     const args = tempArgs.map((arg, i) => {
         if(i == 0) arg = arg.substring(prefix.length);
         if(i == tempArgs.length - 1) arg = arg.substring(0, arg.length - suffix.length);
@@ -37,7 +34,11 @@ const msg = async (msg, bot) => {
     switch (cmd) {
 
         case 'help':
-            msg.channel.send('e')
+            msg.channel.send('`send` `delete` `read` `sent` `invite`');
+        break;
+
+        case 'invite':
+            msg.channel.send('https://discord.com/api/oauth2/authorize?client_id=840711718379323473&permissions=485440&scope=bot');
         break;
 
         case 'send':

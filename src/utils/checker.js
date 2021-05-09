@@ -20,7 +20,7 @@ const checker = (msg, bot) => {
         Mail.find({ targetID: msg.author.id }, async (err, mails) => {
             if(!mails.length) return;
             
-            msg.channel.send('You\'ve got mail! \nUse the [read] command to read your mail.');
+            msg.channel.send(`You've got (${mails.length}) unread ${mails.length > 1 ? 'mails' : 'mail'}! \nUse the [read] command to read your mail.`);
         });
         LastMessaged.delete(msg.author.id);
         LastMessaged.set(msg.author.id, Date.now()); 

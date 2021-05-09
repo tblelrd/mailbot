@@ -105,10 +105,12 @@ const msg = async (msg, bot) => {
                 let currentId = 0;
 
                 const list = mails.map((mail, id) => {
+                    let user = bot.users.cache.find(mail.targetID); 
+
                     if(id == currentId) {
-                        return `------------------\n${id + 1}. ${mail.title}\n------------------`;
+                        return `------------------\n${id + 1}. ${mail.title} (from ${user.username})\n------------------`;
                     }
-                    return `${id + 1}. ${mail.title}`;
+                    return `${id + 1}. ${mail.title} (from ${user.username})`;
                 }).join('\n');
                 const mailsMsg = await msg.channel.send('```nim\n---Your mailss---\n\n' + list + '```');
 
@@ -162,7 +164,10 @@ const msg = async (msg, bot) => {
             Mail.find({ userID: msg.author.id }, (err, mails) => {
                 if(!mails.length) return msg.channel.send('Either the sent mail was read or it didnt exist');
 
-                const list = mails.map((mail, id) => `${id + 1}. ${mail.title}(to ${mail.targetID})`).join('\n');
+                const list = mails.map((mail, id) => {
+                    let user = bot.users.cache.find(mail.targetID); 
+                    return `${id + 1}. ${mail.title} to ${user.username??mail.targetID} (ID: ${mail._id})`
+                }).join('\n');
 
                 msg.channel.send('```nim\n---Sent mails---\n\n' + list + '```');
             });

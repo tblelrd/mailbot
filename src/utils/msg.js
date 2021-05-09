@@ -105,7 +105,7 @@ const msg = async (msg, bot) => {
                 let currentId = 0;
 
                 const list = mails.map((mail, id) => {
-                    let user = bot.users.cache.find(mail.targetID); 
+                    let user = bot.users.cache.find(user => user.id == mail.targetID); 
 
                     if(id == currentId) {
                         return `------------------\n${id + 1}. ${mail.title} (from ${user.username})\n------------------`;
@@ -165,7 +165,7 @@ const msg = async (msg, bot) => {
                 if(!mails.length) return msg.channel.send('Either the sent mail was read or it didnt exist');
 
                 const list = mails.map((mail, id) => {
-                    let user = bot.users.cache.find(mail.targetID); 
+                    let user = bot.users.cache.find(user => user.id == mail.targetID); 
                     return `${id + 1}. ${mail.title} to ${user.username} (ID: ${mail._id})`
                 }).join('\n');
 

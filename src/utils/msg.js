@@ -44,9 +44,9 @@ const msg = async (msg, bot) => {
         case 'send':
             let target = msg.mentions.users.first()
             const filter = m => m.author == msg.author;
-            if((target && target.bot) || !target.id) {
+            if(!target) {
                 target = bot.users.cache.find(user => user.id == args[1]);
-            }; 
+            };
             args.shift();
             args.shift();
             const title = args.join(' ');

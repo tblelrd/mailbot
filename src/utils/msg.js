@@ -51,13 +51,13 @@ const msg = async (msg, bot) => {
             args.shift();
             const title = args.join(' ');
 
-            const myMails = Mail.find({ userID: msg.author.id });
-            const targetMails = Mail.find({ targetID: target.id });
-
-            console.log(myMails.length);
+            const myMails = await Mail.find({ userID: msg.author.id });
+            const targetMails = await Mail.find({ targetID: target.id });
 
             if(myMails.length > 5) return msg.channel.send('You have already sent over 5 mails, please slow down');
-            if(targetMails.length > 10) return msg.channel.send('Please wait, they already have 10 mails'); 
+            if(targetMails.length > 10) return msg.channel.send('Please wait, they already have ') 
+
+
 
             await msg.delete();
             const message = await msg.channel.send(`What do you want to send to ${target.username}`);

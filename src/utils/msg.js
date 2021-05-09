@@ -43,7 +43,7 @@ const msg = async (msg, bot) => {
 
         case 'send':
             const target = msg.mentions.users.first()
-            const filter = m => m.author == target;
+            const filter = m => m.author == msg.author;
             if(target.bot || !target.id) return; 
             args.shift();
             args.shift();
@@ -52,8 +52,8 @@ const msg = async (msg, bot) => {
             await msg.delete();
             const message = await msg.channel.send(`What do you want to send to ${target.username}`);
             const collector = msg.channel.createMessageCollector(filter, {
-                 time: 90000, 
-                 max: 1,
+                time: 90000, 
+                max: 1,
             });
             
             collector.on('collect', async collected => {

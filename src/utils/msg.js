@@ -108,9 +108,9 @@ const msg = async (msg, bot) => {
                     let user = bot.users.cache.find(user => user.id == mail.targetID); 
 
                     if(id == currentId) {
-                        return `------------------\n${id + 1}. ${mail.title} (from ${user.username})\n------------------`;
+                        return `> ${id + 1}. ${mail.title} (from ${user.username})`;
                     }
-                    return `${id + 1}. ${mail.title} (from ${user.username})`;
+                    return `  ${id + 1}. ${mail.title} (from ${user.username})`;
                 }).join('\n');
                 const mailsMsg = await msg.channel.send('```nim\n---Your mailss---\n\n' + list + '```');
 
@@ -191,13 +191,13 @@ const editMsg = (mails, message, id, increment, bot) => {
 
     if(!mails[id + increment]) return id;
     
-    const list = mails.map((mails, ID) => {
+    const list = mails.map((mail, ID) => {
         let user = bot.users.cache.find(user => user.id == mail.targetID);
 
         if(ID == id + increment) {
-            return `------------------\n${ID + 1}. ${mails.title} (from ${user.username})\n------------------`;
+            return `> ${ID + 1}. ${mail.title} (from ${user.username})`;
         }
-        return `${ID + 1}. ${mails.title} (from ${user.username})`;
+        return `  ${ID + 1}. ${mail.title} (from ${user.username})`;
     }).join('\n');
     message.edit('```nim\n---Your mailss---\n\n' + list + '```')
 

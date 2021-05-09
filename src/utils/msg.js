@@ -57,7 +57,6 @@ const msg = async (msg, bot) => {
             });
             
             collector.on('collect', async collected => {
-                console.log(collected);
                 if(!collected.content) return;
 
                 await collected.delete();

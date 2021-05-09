@@ -2,7 +2,9 @@ const { Message, MessageEmbed, Client } = require('discord.js');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
-const { prefix, suffix } = require('../config.json');
+const prefix = '[';
+const suffix = ']';
+
 const checker = require('./checker');
 const Mail = require('../models/mail');
 /**

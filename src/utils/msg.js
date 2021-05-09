@@ -44,7 +44,7 @@ const msg = async (msg, bot) => {
         case 'send':
             const target = msg.mentions.users.first()
             const filter = m => m.author == msg.author;
-            if(target.bot || !target.id) return; 
+            if((target && target.bot) || !target.id) return; 
             args.shift();
             args.shift();
             const title = args.join(' ');
@@ -105,11 +105,13 @@ const msg = async (msg, bot) => {
                 let currentId = 0;
 
                 const list = mails.map((mail, id) => {
-                    let user = bot.users.cache.find(user => user.id == mail.targetID); 
+                    let user = bot.users.cache.find(user => user.id == mail.userID); 
 
                     if(id == currentId) {
+						if(!user) return `> ${ID + 1}. ${mail.title} (from ${mail.userID})`
                         return `> ${id + 1}. ${mail.title} (from ${user.username})`;
                     }
+					if(!user) return `  ${ID + 1}. ${mail.title} (from ${mail.userID})`
                     return `  ${id + 1}. ${mail.title} (from ${user.username})`;
                 }).join('\n');
                 const mailsMsg = await msg.channel.send('```nim\n---Your mailss---\n\n' + list + '```');
@@ -169,7 +171,8 @@ const msg = async (msg, bot) => {
                 if(!mails.length) return msg.channel.send('Either the sent mail was read or it didnt exist');
 
                 const list = mails.map((mail, id) => {
-                    let user = bot.users.cache.find(user => user.id == mail.targetID); 
+                    let user = bot.users.cache.find(user => user.id == mail.targetID);
+					if(!user) return `${id + 1}. ${mail.title} to ${mail.targetID} (ID: ${mail._id})`
                     return `${id + 1}. ${mail.title} to ${user.username} (ID: ${mail._id})`
                 }).join('\n');
 
@@ -192,11 +195,14 @@ const editMsg = (mails, message, id, increment, bot) => {
     if(!mails[id + increment]) return id;
     
     const list = mails.map((mail, ID) => {
-        let user = bot.users.cache.find(user => user.id == mail.targetID);
+        let user = bot.users.cache.find(user => user.id == mail.userID);
 
         if(ID == id + increment) {
+			if(!user) return `> ${ID + 1}. ${mail.title} (from ${mail.userID})`
+
             return `> ${ID + 1}. ${mail.title} (from ${user.username})`;
         }
+		if(!user) return `  ${ID + 1}. ${mail.title} (from ${mail.userID})`
         return `  ${ID + 1}. ${mail.title} (from ${user.username})`;
     }).join('\n');
     message.edit('```nim\n---Your mailss---\n\n' + list + '```')

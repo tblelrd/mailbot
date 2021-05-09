@@ -42,9 +42,11 @@ const msg = async (msg, bot) => {
         break;
 
         case 'send':
-            const target = msg.mentions.users.first()
+            let target = msg.mentions.users.first()
             const filter = m => m.author == msg.author;
-            if((target && target.bot) || !target.id) return; 
+            if((target && target.bot) || !target.id) {
+                target = bot.users.cache.find(user => user.id == args[1]);
+            }; 
             args.shift();
             args.shift();
             const title = args.join(' ');

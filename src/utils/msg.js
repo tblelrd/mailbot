@@ -135,8 +135,12 @@ const msg = async (msg, bot) => {
                         break;
 
                         case '✔':
-                            await msg.delete();
-                            await mailsMsg.delete();
+                            try {    
+                                await msg.delete();
+                                await mailsMsg.delete();
+                            } catch (e) {
+                                //
+                            }
 
                             const mail = mails[currentId];
                             

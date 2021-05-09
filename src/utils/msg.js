@@ -55,7 +55,7 @@ const msg = async (msg, bot) => {
             const targetMails = await Mail.find({ targetID: target.id });
 
             if(myMails.length > 5) return msg.channel.send('You have already sent over 5 mails, please slow down');
-            if(targetMails.length > 10) return msg.channel.send('Please wait, they already have ') 
+            if(targetMails.length > 10) return msg.channel.send('Please wait, they already have 10 mails') 
 
 
 

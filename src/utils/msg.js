@@ -166,7 +166,7 @@ const msg = async (msg, bot) => {
 
                 const list = mails.map((mail, id) => {
                     let user = bot.users.cache.find(mail.targetID); 
-                    return `${id + 1}. ${mail.title} to ${user.username??mail.targetID} (ID: ${mail._id})`
+                    return `${id + 1}. ${mail.title} to ${user.username} (ID: ${mail._id})`
                 }).join('\n');
 
                 msg.channel.send('```nim\n---Sent mails---\n\n' + list + '```');

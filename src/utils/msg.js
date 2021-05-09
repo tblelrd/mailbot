@@ -127,11 +127,11 @@ const msg = async (msg, bot) => {
                 collector.on('collect', async (reaction, user) => {
                     switch(reaction.emoji.name) {
                         case '⬆':
-                            currentId = editMsg(mails, mailsMsg, currentId, -1);
+                            currentId = editMsg(mails, mailsMsg, currentId, -1, bot);
                         break;
                         
                         case '⬇':
-                            currentId = editMsg(mails, mailsMsg, currentId, 1);
+                            currentId = editMsg(mails, mailsMsg, currentId, 1, bot);
                         break;
 
                         case '✔':
@@ -187,7 +187,7 @@ const msg = async (msg, bot) => {
  * @param {Number} id
  * @param {Number} increment 
  */
-const editMsg = (mails, message, id, increment) => {
+const editMsg = (mails, message, id, increment, bot) => {
 
     if(!mails[id + increment]) return id;
     

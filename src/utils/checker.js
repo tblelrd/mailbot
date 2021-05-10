@@ -23,12 +23,13 @@ const checker = (msg, bot, seenMails) => {
 
             const seenMailsList = seenMails.get(msg.author);
             const newMails = [];
-            mails.forEach(mail => {
+
+            for(const mail of mails) {
                 if(seenMailsList && seenMailsList.includes(mail)) {
                     console.log('seem');
                     newMails.push(mail);
                 }
-            });
+            }
             console.log(seenMailsList && seenMailsList.map(mail => mail.title));
             console.log(newMails.map(mail => mail.title));
             if(newMails.length == 0) return;

@@ -25,7 +25,7 @@ const checker = (msg, bot, seenMails) => {
             let newMails = [];
             if(seenMailsList) newMails = mails.filter(mail => !seenMailsList.includes(mail));
 
-            console.log(seenMailList);
+            console.log(seenMailsList);
             if(!newMails.length) return;
 
             msg.channel.send(`You've got ${newMails.length} new ${newMails.length > 1 ? 'mails' : 'mail'}! \nType [read] to read your mail.`);

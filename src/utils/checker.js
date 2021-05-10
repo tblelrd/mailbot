@@ -21,9 +21,10 @@ const checker = (msg, bot, seenMails) => {
         Mail.find({ targetID: msg.author.id }, async (err, mails) => {
             if(!mails.length) return;
 
-            const seenMailsList = seenMails.get(msg.author)
-            const newMails = mails.filter(mail => !seenMailsList.includes(mail));
-            
+            const seenMailsList = seenMails.get(msg.author.id);
+            let newMails = [];
+            if(seenMailsList) newMails = mails.filter(mail => !seenMailsList.includes(mail));
+
             console.log(seenMailList);
             if(!newMails.length) return;
 

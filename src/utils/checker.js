@@ -22,13 +22,13 @@ const checker = (msg, bot, seenMails) => {
             if(!mails.length) return;
 
             const seenMailsList = seenMails.get(msg.author);
-            let newMails = [];
-            if(seenMailsList) {
-                newMails = mails.filter(mail => !seenMailsList.map(seenMail => seenMail.title).includes(mail.title));
-            } else {
-                newMails = mails;
-            }
-
+            const newMails = [];
+            mails.forEach(mail => {
+                if(seenMailsList && seenMailsList.includes(mail)) {
+                    console.log('seem');
+                    newMails.push(mail);
+                }
+            });
             console.log(seenMailsList && seenMailsList.map(mail => mail.title));
             console.log(newMails.map(mail => mail.title));
             if(newMails.length == 0) return;

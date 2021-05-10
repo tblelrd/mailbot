@@ -6,7 +6,7 @@ const Mail = require('../models/mail');
  * @type {Map<String, Date>}
  */
 const LastMessaged = new Map();
-const waitTime = 1000;
+const waitTime = 1000 * 60 * 60 * 24;
 
 /**
  * 
@@ -21,20 +21,24 @@ const checker = (msg, bot, seenMails) => {
         Mail.find({ targetID: msg.author.id }, async (err, mails) => {
             if(!mails.length) return;
 
-            const seenMailsList = seenMails.get(msg.author);
-            const newMails = [];
+            // const seenMailsList = seenMails.get(msg.author);
+            // const newMails = [];
 
-            for(const mail of mails) {
-                if(seenMailsList && seenMailsList.includes(mail)) {
-                    console.log('seem');
-                    newMails.push(mail);
-                }
-            }
-            console.log(seenMailsList && seenMailsList.map(mail => mail.title));
-            console.log(newMails.map(mail => mail.title));
-            if(newMails.length == 0) return;
+			// console.log(seenMailsList.map(mail => mail.title));
+			// console.log(mails);
+			// console.log(seenMailsList.map(mail => mail.title) == mails.map(mail => mail.title));
 
-            msg.channel.send(`You've got ${newMails.length} new ${newMails.length > 1 ? 'mails' : 'mail'}! \nType [read] to read your mail.`);
+            // for(const mail of mails) {
+            //     if(seenMailsList && seenMailsList.includes(mail)) {
+            //         console.log('seem');
+            //         newMails.push(mail);
+            //     }
+            // }
+            // console.log(seenMailsList && seenMailsList.map(mail => mail.title));
+            // console.log(newMails.map(mail => mail.title));
+            // if(newMails.length == 0) return;
+
+            msg.channel.send(`You've got ${mails.length} new ${mails.length > 1 ? 'mails' : 'mail'}! \nType [read] to read your mail.`);
         });
         LastMessaged.delete(msg.author.id);
         LastMessaged.set(msg.author.id, Date.now()); 
